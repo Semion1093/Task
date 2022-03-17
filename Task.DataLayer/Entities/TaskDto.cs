@@ -4,7 +4,7 @@ namespace Task.DataLayer.Entities
 {
     public class TaskDto
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; }
         public string Name { get; set; }
         public TaskStatus Status { get; set; }
         public string Description { get; set; }
