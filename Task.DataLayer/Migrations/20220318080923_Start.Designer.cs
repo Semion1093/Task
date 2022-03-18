@@ -12,8 +12,8 @@ using TestTask.DataLayer;
 namespace TestTask.DataLayer.Migrations
 {
     [DbContext(typeof(TaskContext))]
-    [Migration("20220318080222_Replace Guid By Int")]
-    partial class ReplaceGuidByInt
+    [Migration("20220318080923_Start")]
+    partial class Start
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,7 +28,7 @@ namespace TestTask.DataLayer.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("Uniqueidentifier");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("Completion")
                         .HasColumnType("datetime2");
@@ -60,7 +60,7 @@ namespace TestTask.DataLayer.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("Uniqueidentifier");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -79,7 +79,7 @@ namespace TestTask.DataLayer.Migrations
                         .HasColumnType("int");
 
                     b.Property<Guid>("ProjectId")
-                        .HasColumnType("Uniqueidentifier");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");

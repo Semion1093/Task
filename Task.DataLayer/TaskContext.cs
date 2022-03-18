@@ -19,14 +19,6 @@ namespace TestTask.DataLayer
             modelBuilder.Entity<TaskDto>()
                 .Property(a => a.IsDeleted)
                 .HasDefaultValue(0);
-
-            modelBuilder.Entity<ProjectDto>()
-                .Property(a => a.Id)
-                .HasColumnType("Uniqueidentifier");
-
-            modelBuilder.Entity<TaskDto>()
-                .Property(a => a.Id)
-                .HasColumnType("Uniqueidentifier");
         }
     }
 }

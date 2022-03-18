@@ -1,6 +1,4 @@
-﻿using TestTask.API.Layer.Models;
-
-namespace Task.API.Layer.Models.InputModels
+﻿namespace TestTask.API.Layer.Models.InputModels
 {
     internal class TaskUpdateModel : TaskInputModel
     {
