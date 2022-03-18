@@ -1,6 +1,6 @@
-﻿using TaskStatus = Task.BusinessLayer.Enums.TaskStatus;
+﻿using TaskStatus = TestTask.BusinessLayer.Enums.TaskStatus;
 
-namespace Task.BusinessLayer.Models
+namespace TestTask.BusinessLayer.Models
 {
     public class TaskModel
     {

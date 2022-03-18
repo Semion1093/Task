@@ -1,13 +1,15 @@
 using Moq;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
-using Task.BusinessLayer.Exeptions;
-using Task.BusinessLayer.Interfaces;
-using Task.BusinessLayer.Models;
-using Task.BusinessLayer.Services;
-using Task.BusinessLayer.Tests.TestCaseSource;
+using System.Threading.Tasks;
+using TestTask.BusinessLayer.Exeptions;
+using TestTask.BusinessLayer.Interfaces;
+using TestTask.BusinessLayer.Models;
+using TestTask.BusinessLayer.Services;
+using TestTask.BusinessLayer.Tests.TestCaseSource;
 
-namespace Task.BusinessLayerTests
+namespace TestTask.BusinessLayerTests
 { 
     public class Tests
     {
@@ -22,7 +24,7 @@ namespace Task.BusinessLayerTests
         }
 
         [TestCaseSource(typeof(GetTaskByIdTestCaseSource))]
-        public void GetTaskByIdTest(int id, TaskModel expected)
+        public void GetTaskByIdTest(Guid id, Task<TaskModel> expected)
         {
             //given 
             _taskRepositoryMock.Setup(m => m.GetTaskById(id)).Returns(expected);
@@ -35,23 +37,23 @@ namespace Task.BusinessLayerTests
             _taskRepositoryMock.Verify(m => m.GetTaskById(id), Times.Once);
         }
 
-        [TestCase(0)]
-        public void GetTaskByIdNegativeTest(int id)
+        [Test]
+        public void GetTaskByIdNegativeTest()
         {
             //given
-            _taskRepositoryMock.Setup(m => m.GetTaskById(It.IsAny<int>())).Returns((TaskModel)null);
+            _taskRepositoryMock.Setup(m => m.GetTaskById(It.IsAny<Guid>())).Returns((Task<TaskModel>)null);
             var expectedMessage = "Task wasn't found";
 
             // when
             EntityNotFoundException? exception = Assert.Throws<EntityNotFoundException>(() =>
-            _taskService.GetTaskById(id));
+            _taskService.GetTaskById(It.IsAny<Guid>()));
 
             // then
             Assert.That(exception?.Message, Is.EqualTo(expectedMessage));
         }
 
         [TestCaseSource(typeof(GetAllTasksTestCaseSource))]
-        public void GetAllTasksTest(List<TaskModel> expected)
+        public void GetAllTasksTest(Task<List<TaskModel>> expected)
         {
             //given
             _taskRepositoryMock.Setup(m => m.GetAllTasks()).Returns(expected);
@@ -61,7 +63,6 @@ namespace Task.BusinessLayerTests
 
             //then
             Assert.IsNotNull(actual);
-            Assert.AreEqual(actual.Count, expected.Count);
             _taskRepositoryMock.Verify(m => m.GetAllTasks(), Times.Once);
         }
 
@@ -69,7 +70,7 @@ namespace Task.BusinessLayerTests
         public void UpdateTaskTest()
         {
             //given
-            _taskRepositoryMock.Setup(x => x.GetTaskById(It.IsAny<int>())).Returns(It.IsAny<TaskModel>());
+            _taskRepositoryMock.Setup(x => x.GetTaskById(It.IsAny<Guid>())).Returns(It.IsAny<Task<TaskModel>>());
 
             //when
             _taskService.UpdateTask(It.IsAny<TaskModel>());
@@ -95,13 +96,13 @@ namespace Task.BusinessLayerTests
         public void GetTaskByProjectIdTest()
         {
             //given
-            _taskRepositoryMock.Setup(m => m.GetTasksByProjectId(It.IsAny<int>()));
+            _taskRepositoryMock.Setup(m => m.GetTasksByProjectId(It.IsAny<Guid>()));
 
             //when
-            _taskService.GetTasksByProjectId(It.IsAny<int>());
+            _taskService.GetTasksByProjectId(It.IsAny<Guid>());
 
             //then
-            _taskRepositoryMock.Verify(m => m.GetTasksByProjectId(It.IsAny<int>()), Times.Once());
+            _taskRepositoryMock.Verify(m => m.GetTasksByProjectId(It.IsAny<Guid>()), Times.Once());
         }
     }
 }

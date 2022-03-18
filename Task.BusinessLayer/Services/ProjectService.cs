@@ -1,8 +1,8 @@
-﻿using Task.BusinessLayer.Exeptions;
-using Task.BusinessLayer.Interfaces;
-using Task.BusinessLayer.Models;
+﻿using TestTask.BusinessLayer.Exeptions;
+using TestTask.BusinessLayer.Interfaces;
+using TestTask.BusinessLayer.Models;
 
-namespace Task.BusinessLayer.Services
+namespace TestTask.BusinessLayer.Services
 {
     public class ProjectService : IProjectService
     {
@@ -13,16 +13,16 @@ namespace Task.BusinessLayer.Services
             _projectRepository = projectRepository;
         }
 
-        public int AddProject(ProjectModel projectModel)
+        public async Task<Guid> AddProject(ProjectModel projectModel)
         {
-            var projectId = _projectRepository.AddProject(projectModel);
+            var projectId = await _projectRepository.AddProject(projectModel);
 
             return projectId;
         }
 
-        public ProjectModel GetProjectById(int id)
+        public async Task<ProjectModel> GetProjectById(Guid id)
         {
-            var projectModel = _projectRepository.GetProjectById(id);
+            var projectModel = await _projectRepository.GetProjectById(id);
 
             if (projectModel is null)
                 throw new EntityNotFoundException($"Project wasn't found");
@@ -30,20 +30,20 @@ namespace Task.BusinessLayer.Services
             return projectModel;
         }
 
-        public List<ProjectModel> GetAllProjects()
+        public async Task<List<ProjectModel>> GetAllProjects()
         {
-            var projectModels = _projectRepository.GetAllProjects();
+            var projectModels = await _projectRepository.GetAllProjects();
             return projectModels;
         }
 
-        public void UpdateProject(ProjectModel projectModel)
+        public async Task UpdateProject(ProjectModel projectModel)
         {
-            _projectRepository.UpdateProject(projectModel);
+            await _projectRepository.UpdateProject(projectModel);
         }
 
-        public void DeleteProject(ProjectModel projectModel)
+        public async Task DeleteProject(ProjectModel projectModel)
         {
-            _projectRepository.DeleteProject(projectModel);
+            await _projectRepository.DeleteProject(projectModel);
         }
     }
 }

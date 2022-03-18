@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
-using Task.BusinessLayer.Interfaces;
-using Task.BusinessLayer.Models;
-using Task.DataLayer.Entities;
+using Microsoft.EntityFrameworkCore;
+using TestTask.BusinessLayer.Interfaces;
+using TestTask.BusinessLayer.Models;
+using TestTask.DataLayer.Entities;
 
-namespace Task.DataLayer.Repositories
+namespace TestTask.DataLayer.Repositories
 {
     public class TaskRepository : ITaskRepository
     {
@@ -16,41 +17,48 @@ namespace Task.DataLayer.Repositories
             _mapper = mapper;
         }
 
-        public List<TaskModel> GetAllTasks()
+        public async Task<List<TaskModel>> GetAllTasks()
         {
-            var tasksDto = _context.Tasks.Where(t => !t.IsDeleted).ToList();
+            var tasksDto = await _context.Tasks.Where(t => !t.IsDeleted).ToListAsync();
 
             return _mapper.Map<List<TaskModel>>(tasksDto);
         }
 
-        public TaskModel GetTaskById(int id)
+        public async Task<TaskModel> GetTaskById(Guid id)
         {
-            var taskDto = _context.Tasks.Where(t => t.Id == id).FirstOrDefault();
+            var taskDto = await _context.Tasks
+                .Where(t => t.Id == id)
+                .FirstOrDefaultAsync();
 
             return _mapper.Map<TaskModel>(taskDto);
         }
 
-        public List<TaskModel> GetTasksByProjectId(int id)
+        public async Task<List<TaskModel>> GetTasksByProjectId(Guid id)
         {
-            var tasksDto = _context.Tasks.Where(t => t.Project.Id == id).Where(x => !x.IsDeleted).ToList();
+            var tasksDto = await _context.Tasks
+                .Where(t => t.Project.Id == id)
+                .Where(x => !x.IsDeleted)
+                .ToListAsync();
 
             return _mapper.Map<List<TaskModel>>(tasksDto);
         }
 
-        public void UpdateTask(TaskModel taskModel)
+        public async Task UpdateTask(TaskModel taskModel)
         {
             var tasktDto = _mapper.Map<TaskDto>(taskModel);
             _context.Update(tasktDto);
-            _context.SaveChanges();
+
+            await _context.SaveChangesAsync();
         }
 
-        public void DeleteTask(TaskModel taskModel)
+        public async Task DeleteTask(TaskModel taskModel)
         {
             var tasktDto = _mapper.Map<TaskDto>(taskModel);
+
             _context.Entry(new TaskDto { Id = tasktDto.Id, IsDeleted = true })
                 .Property(x => x.IsDeleted).IsModified = true;
-            _context.SaveChanges();
-        }
 
+            await _context.SaveChangesAsync();
+        }
     }
 }

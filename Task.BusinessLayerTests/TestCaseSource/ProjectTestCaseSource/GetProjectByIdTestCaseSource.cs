@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections;
-using Task.BusinessLayer.Enums;
-using Task.BusinessLayer.Models;
+using TestTask.BusinessLayer.Enums;
+using TestTask.BusinessLayer.Models;
 
-namespace Task.BusinessLayer.Tests.TestCaseSource
+namespace TestTask.BusinessLayer.Tests.TestCaseSource
 {
     public class GetProjectByIdTestCaseSource : IEnumerable
     {
@@ -11,7 +11,7 @@ namespace Task.BusinessLayer.Tests.TestCaseSource
         {
             var expected = new ProjectModel
             {
-                Id = 1,
+                Id = Guid.NewGuid(),
                 Name = "Name1",
                 Priority = 1,
                 Status = ProjectStatus.Active,
@@ -19,7 +19,8 @@ namespace Task.BusinessLayer.Tests.TestCaseSource
                 Completion = DateTime.Now
             };
 
-            int id = 1;
+            Guid id = Guid.NewGuid();
+
             yield return new object[] { id, expected };
         }
 

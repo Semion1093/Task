@@ -1,6 +1,6 @@
-﻿using Task.BusinessLayer.Enums;
+﻿using TestTask.BusinessLayer.Enums;
 
-namespace Task.DataLayer.Entities
+namespace TestTask.DataLayer.Entities
 {
     public class ProjectDto
     {

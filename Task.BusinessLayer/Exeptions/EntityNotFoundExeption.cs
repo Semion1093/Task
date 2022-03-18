@@ -1,4 +1,4 @@
-﻿namespace Task.BusinessLayer.Exeptions
+﻿namespace TestTask.BusinessLayer.Exeptions
 {
     public class EntityNotFoundException : Exception
     {

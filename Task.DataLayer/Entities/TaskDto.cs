@@ -1,6 +1,6 @@
-﻿using TaskStatus = Task.BusinessLayer.Enums.TaskStatus;
+﻿using TaskStatus = TestTask.BusinessLayer.Enums.TaskStatus;
 
-namespace Task.DataLayer.Entities
+namespace TestTask.DataLayer.Entities
 {
     public class TaskDto
     {

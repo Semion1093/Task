@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Task.DataLayer.Entities;
+using TestTask.DataLayer.Entities;
 
-namespace Task.DataLayer
+namespace TestTask.DataLayer
 {
     public class TaskContext : DbContext
     {
@@ -13,12 +13,21 @@ namespace Task.DataLayer
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ProjectDto>()
-            .Property(a => a.IsDeleted)
-            .HasDefaultValue(0);
+                .Property(a => a.IsDeleted)
+                .HasDefaultValue(0);
 
             modelBuilder.Entity<TaskDto>()
-            .Property(a => a.IsDeleted)
-            .HasDefaultValue(0);
+                .Property(a => a.IsDeleted)
+                .HasDefaultValue(0);
+
+            modelBuilder.Entity<ProjectDto>()
+                .Property(a => a.Id)
+                .HasColumnType("Uniqueidentifier");
+
+            modelBuilder.Entity<TaskDto>()
+                .Property(a => a.Id)
+                .HasColumnType("Uniqueidentifier");
         }
     }
 }
+

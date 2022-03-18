@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Task.DataLayer.Migrations
+namespace TestTask.DataLayer.Migrations
 {
     public partial class Start : Migration
     {

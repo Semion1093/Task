@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using Task.API.Models;
-using Task.BusinessLayer.Interfaces;
-using Task.BusinessLayer.Models;
+using TestTask.API.Layer.Models;
+using TestTask.BusinessLayer.Interfaces;
+using TestTask.BusinessLayer.Models;
 
-namespace Task.Controllers
+namespace TestTask.API.Layer.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -25,9 +25,9 @@ namespace Task.Controllers
         [SwaggerResponse(200, "OK")]
         [SwaggerResponse(400, "Bad Request")]
         [SwaggerResponse(404, "Not Found")]
-        public ActionResult<TaskOutputModel> GetTaskById(int id)
+        public async Task<ActionResult<TaskOutputModel>> GetTaskById(Guid id)
         {
-            var task = _mapper.Map<TaskOutputModel>(_taskService.GetTaskById(id));
+            var task = _mapper.Map<TaskOutputModel>(await _taskService.GetTaskById(id));
 
             return task;
         }
@@ -37,9 +37,9 @@ namespace Task.Controllers
         [SwaggerResponse(200, "OK")]
         [SwaggerResponse(400, "Bad Request")]
         [SwaggerResponse(404, "Not Found")]
-        public ActionResult<List<TaskOutputModel>> GetTaskByProjectId(int id)
+        public async Task<ActionResult<List<TaskOutputModel>>> GetTaskByProjectId(Guid id)
         {
-            var tasks = _mapper.Map<List<TaskOutputModel>>(_taskService.GetTasksByProjectId(id));
+            var tasks = _mapper.Map<List<TaskOutputModel>>(await _taskService.GetTasksByProjectId(id));
 
             return tasks;
         }
@@ -49,9 +49,9 @@ namespace Task.Controllers
         [SwaggerResponse(200, "OK")]
         [SwaggerResponse(400, "Bad Request")]
         [SwaggerResponse(404, "Not Found")]
-        public ActionResult<List<TaskOutputModel>> GetAllTasks()
+        public async Task<ActionResult<List<TaskOutputModel>>> GetAllTasks()
         {
-            var tasks = _mapper.Map<List<TaskOutputModel>>(_taskService.GetAllTasks());
+            var tasks = _mapper.Map<List<TaskOutputModel>>(await _taskService.GetAllTasks());
 
             return tasks;
         }
@@ -62,10 +62,10 @@ namespace Task.Controllers
         [SwaggerResponse(204, "NoContent")]
         [SwaggerResponse(400, "Bad Request")]
         [SwaggerResponse(404, "NotFound")]
-        public ActionResult UpdateTask([FromBody] TaskUpdateModel task)
+        public async Task<ActionResult> UpdateTask([FromBody] TaskInputModel task)
         {
             var taskModel = _mapper.Map<TaskModel>(task);
-            _taskService.UpdateTask(taskModel);
+            await _taskService.UpdateTask(taskModel);
 
             return NoContent();
         }
@@ -75,10 +75,10 @@ namespace Task.Controllers
         [SwaggerResponse(204, "NoContent")]
         [SwaggerResponse(400, "Bad Request")]
         [SwaggerResponse(404, "NotFound")]
-        public ActionResult DeleteTask([FromBody] TaskUpdateModel task)
+        public async Task<ActionResult> DeleteTask([FromBody] TaskInputModel task)
         {
             var taskModel = _mapper.Map<TaskModel>(task);
-            _taskService.DeleteTask(taskModel);
+            await _taskService.DeleteTask(taskModel);
 
             return NoContent();
         }

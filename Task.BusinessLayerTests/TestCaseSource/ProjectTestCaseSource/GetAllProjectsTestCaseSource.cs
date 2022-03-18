@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using Task.BusinessLayer.Enums;
-using Task.BusinessLayer.Models;
+using TestTask.BusinessLayer.Enums;
+using TestTask.BusinessLayer.Models;
 
-namespace Task.BusinessLayer.Tests.TestCaseSource
+namespace TestTask.BusinessLayer.Tests.TestCaseSource
 {
     internal class GetAllProjectsTestCaseSource : IEnumerable
     {
@@ -14,7 +14,7 @@ namespace Task.BusinessLayer.Tests.TestCaseSource
             {
                 new ProjectModel()
                 {
-                    Id = 1,
+                    Id = Guid.NewGuid(),
                     Name = "Name1",
                     Priority = 1,
                     Status = ProjectStatus.Active,
@@ -23,7 +23,7 @@ namespace Task.BusinessLayer.Tests.TestCaseSource
                 },
                 new ProjectModel()
                 {
-                    Id = 2,
+                    Id = Guid.NewGuid(),
                     Name = "Name2",
                     Priority = 2,
                     Status = ProjectStatus.Completed,

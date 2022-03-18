@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
-using Task.API.Models;
-using Task.BusinessLayer.Models;
+using TestTask.API.Layer.Models;
+using TestTask.BusinessLayer.Models;
 
-namespace Task.API.Configuration
+namespace TestTask.API.Configuration
 {
     public class ApiMapper : Profile
     {
         public ApiMapper()
         {
-            CreateMap<TaskUpdateModel, TaskModel>();
+            CreateMap<TaskInputModel, TaskModel>();
             CreateMap<TaskModel, TaskOutputModel>();
 
             CreateMap<ProjectInputModel, ProjectModel>();

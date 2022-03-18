@@ -1,8 +1,8 @@
-﻿using TaskStatus = Task.BusinessLayer.Enums.TaskStatus;
+﻿using TaskStatus = TestTask.BusinessLayer.Enums.TaskStatus;
 
-namespace Task.API.Models
+namespace TestTask.API.Layer.Models
 {
-    public class TaskOutputModel
+    public class TaskInputModel
     {
         public string Name { get; set; }
         public TaskStatus Status { get; set; }

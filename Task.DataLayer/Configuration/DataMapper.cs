@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using Task.BusinessLayer.Models;
-using Task.DataLayer.Entities;
+using TestTask.BusinessLayer.Models;
+using TestTask.DataLayer.Entities;
 
-namespace Task.BusinessLayer.Configuration
+namespace TestTask.BusinessLayer.Configuration
 {
     public class DataMapper : Profile
     {

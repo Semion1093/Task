@@ -1,10 +1,9 @@
-﻿using TaskStatus = Task.BusinessLayer.Enums.TaskStatus;
+﻿using TaskStatus = TestTask.BusinessLayer.Enums.TaskStatus;
 
-namespace Task.API.Models
+namespace TestTask.API.Layer.Models
 {
-    public class TaskUpdateModel
+    public class TaskOutputModel
     {
-        public Guid Id { get; set; } 
         public string Name { get; set; }
         public TaskStatus Status { get; set; }
         public string Description { get; set; }

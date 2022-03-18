@@ -1,4 +1,4 @@
-﻿namespace Task.BusinessLayer.Enums
+﻿namespace TestTask.BusinessLayer.Enums
 {
     public enum ProjectStatus
     {

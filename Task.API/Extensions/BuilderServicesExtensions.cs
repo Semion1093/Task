@@ -1,8 +1,8 @@
-﻿using Task.BusinessLayer.Interfaces;
-using Task.BusinessLayer.Services;
-using Task.DataLayer.Repositories;
+﻿using TestTask.BusinessLayer.Interfaces;
+using TestTask.BusinessLayer.Services;
+using TestTask.DataLayer.Repositories;
 
-namespace Task.API.Extensions
+namespace TestTask.API.Extensions
 {
     public static class BuilderServicesExtensions
     {

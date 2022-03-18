@@ -1,6 +1,6 @@
-﻿using Task.BusinessLayer.Enums;
+﻿using TestTask.BusinessLayer.Enums;
 
-namespace Task.BusinessLayer.Models
+namespace TestTask.BusinessLayer.Models
 {
     public class ProjectModel
     {

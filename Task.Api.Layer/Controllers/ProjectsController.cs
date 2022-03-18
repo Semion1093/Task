@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using Task.API.Models;
-using Task.BusinessLayer.Interfaces;
-using Task.BusinessLayer.Models;
+using TestTask.API.Layer.Models;
+using TestTask.BusinessLayer.Interfaces;
+using TestTask.BusinessLayer.Models;
 
-namespace Task.API.Controllers
+namespace TestTask.API.Layer.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -24,9 +24,9 @@ namespace Task.API.Controllers
         [SwaggerOperation(Summary = "Add new project")]
         [SwaggerResponse(201, "Created")]
         [SwaggerResponse(400, "Bad Request")]
-        public ActionResult AddProject([FromBody] ProjectInputModel project)
+        public async Task<ActionResult> AddProject([FromBody] ProjectInputModel project)
         {
-            var projectId = _projectService.AddProject(_mapper.Map<ProjectModel>(project));
+            var projectId = await _projectService.AddProject( _mapper.Map<ProjectModel>(project));
 
             return StatusCode(201, projectId);
         }
@@ -36,9 +36,9 @@ namespace Task.API.Controllers
         [SwaggerResponse(200, "OK")]
         [SwaggerResponse(400, "Bad Request")]
         [SwaggerResponse(404, "Not Found")]
-        public ActionResult<ProjectOutputModel> GetProjectById(int id)
+        public async Task<ActionResult<ProjectOutputModel>> GetProjectById(Guid id)
         {
-            var project = _mapper.Map<ProjectOutputModel>(_projectService.GetProjectById(id));
+            var project = _mapper.Map<ProjectOutputModel>(await _projectService.GetProjectById(id));
 
             return project;
         }
@@ -48,9 +48,9 @@ namespace Task.API.Controllers
         [SwaggerResponse(200, "OK")]
         [SwaggerResponse(400, "Bad Request")]
         [SwaggerResponse(404, "Not Found")]
-        public ActionResult<List<ProjectOutputModel>> GetAllProjects()
+        public async Task<ActionResult<List<ProjectOutputModel>>> GetAllProjects()
         {
-            var projects = _mapper.Map<List<ProjectOutputModel>>(_projectService.GetAllProjects());
+            var projects = _mapper.Map<List<ProjectOutputModel>>(await _projectService.GetAllProjects());
 
             return projects;
         }
@@ -60,10 +60,10 @@ namespace Task.API.Controllers
         [SwaggerResponse(204, "NoContent")]
         [SwaggerResponse(400, "Bad Request")]
         [SwaggerResponse(404, "NotFound")]
-        public ActionResult UpdateProject([FromBody] ProjectUpdateModel project)
+        public async Task<ActionResult> UpdateProject([FromBody] ProjectUpdateModel project)
         {
             var projectModel = _mapper.Map<ProjectModel>(project);
-            _projectService.UpdateProject(projectModel);
+            await _projectService.UpdateProject(projectModel);
 
             return NoContent();
         }
@@ -73,10 +73,10 @@ namespace Task.API.Controllers
         [SwaggerResponse(204, "NoContent")]
         [SwaggerResponse(400, "Bad Request")]
         [SwaggerResponse(404, "NotFound")]
-        public ActionResult DeleteProject([FromBody] ProjectUpdateModel project)
+        public async Task<ActionResult> DeleteProject([FromBody] ProjectUpdateModel project)
         {
             var projctModel = _mapper.Map<ProjectModel>(project);
-            _projectService.DeleteProject(projctModel);
+            await _projectService.DeleteProject(projctModel);
 
             return NoContent();
         }

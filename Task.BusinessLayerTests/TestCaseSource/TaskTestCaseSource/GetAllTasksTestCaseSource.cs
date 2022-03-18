@@ -1,9 +1,10 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using Task.BusinessLayer.Enums;
-using Task.BusinessLayer.Models;
+using TestTask.BusinessLayer.Enums;
+using TestTask.BusinessLayer.Models;
 
-namespace Task.BusinessLayer.Tests.TestCaseSource
+namespace TestTask.BusinessLayer.Tests.TestCaseSource
 {
     public class GetAllTasksTestCaseSource : IEnumerable
     {
@@ -13,7 +14,7 @@ namespace Task.BusinessLayer.Tests.TestCaseSource
             {
                 new TaskModel()
                 {
-                    Id = 1,
+                    Id = Guid.NewGuid(),
                     Name = "Name1",
                     Description = "Description1",
                     Priority = 1,
@@ -21,7 +22,7 @@ namespace Task.BusinessLayer.Tests.TestCaseSource
                 },
                 new TaskModel()
                 {
-                    Id = 2,
+                    Id = Guid.NewGuid(),
                     Name = "Name2",
                     Description = "Description2",
                     Priority = 2,

@@ -1,13 +1,13 @@
-﻿using Task.BusinessLayer.Models;
+﻿using TestTask.BusinessLayer.Models;
 
-namespace Task.BusinessLayer.Interfaces
+namespace TestTask.BusinessLayer.Interfaces
 {
     public interface IProjectService
     {
-        int AddProject(ProjectModel projectModel);
-        void DeleteProject(ProjectModel projectModel);
-        List<ProjectModel> GetAllProjects();
-        ProjectModel GetProjectById(int id);
-        void UpdateProject(ProjectModel projectModel);
+        Task<Guid> AddProject(ProjectModel projectModel);
+        Task DeleteProject(ProjectModel projectModel);
+        Task<List<ProjectModel>> GetAllProjects();
+        Task<ProjectModel> GetProjectById(Guid id);
+        Task UpdateProject(ProjectModel projectModel);
     }
 }

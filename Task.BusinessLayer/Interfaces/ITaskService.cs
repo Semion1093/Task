@@ -1,13 +1,13 @@
-﻿using Task.BusinessLayer.Models;
+﻿using TestTask.BusinessLayer.Models;
 
-namespace Task.BusinessLayer.Interfaces
+namespace TestTask.BusinessLayer.Interfaces
 {
     public interface ITaskService
     {
-        void DeleteTask(TaskModel taskModel);
-        List<TaskModel> GetAllTasks();
-        List<TaskModel> GetTasksByProjectId(int id);
-        TaskModel GetTaskById(int id);
-        void UpdateTask(TaskModel taskModel);
+        Task DeleteTask(TaskModel taskModel);
+        Task<List<TaskModel>> GetAllTasks();
+        Task<List<TaskModel>> GetTasksByProjectId(Guid id);
+        Task<TaskModel> GetTaskById(Guid id);
+        Task UpdateTask(TaskModel taskModel);
     }
 }

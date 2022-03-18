@@ -1,9 +1,10 @@
 ﻿using AutoMapper;
-using Task.BusinessLayer.Interfaces;
-using Task.BusinessLayer.Models;
-using Task.DataLayer.Entities;
+using Microsoft.EntityFrameworkCore;
+using TestTask.BusinessLayer.Interfaces;
+using TestTask.BusinessLayer.Models;
+using TestTask.DataLayer.Entities;
 
-namespace Task.DataLayer.Repositories
+namespace TestTask.DataLayer.Repositories
 {
     public class ProjectRepository : IProjectRepository
     {
@@ -16,42 +17,42 @@ namespace Task.DataLayer.Repositories
             _mapper = mapper;
         }
 
-        public int AddProject(ProjectModel projectModel)
+        public async Task<Guid> AddProject(ProjectModel projectModel)
         {
             var projectDto = _mapper.Map<ProjectDto>(projectModel);
             var addedProject = _context.Projects.Add(projectDto);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return addedProject.Entity.Id;
         }
 
-        public List<ProjectModel> GetAllProjects()
+        public async Task<List<ProjectModel>> GetAllProjects()
         {
-            var projectsDto = _context.Projects.Where(p => !p.IsDeleted).ToList(); ;
+            var projectsDto = await _context.Projects.Where(p => !p.IsDeleted).ToListAsync(); ;
 
             return _mapper.Map<List<ProjectModel>>(projectsDto);
         }
 
-        public ProjectModel GetProjectById(int id)
+        public async Task <ProjectModel> GetProjectById(Guid id)
         {
-            var projectDto = _context.Projects.Where(p => p.Id == id).FirstOrDefault();
+            var projectDto = await _context.Projects.Where(p => p.Id == id).FirstOrDefaultAsync();
 
             return _mapper.Map<ProjectModel>(projectDto);
         }
 
-        public void UpdateProject(ProjectModel projectModel)
+        public async Task UpdateProject(ProjectModel projectModel)
         {
             var projectDto = _mapper.Map<ProjectDto>(projectModel);
             _context.Update(projectDto);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void DeleteProject(ProjectModel projectModel)
+        public async Task DeleteProject(ProjectModel projectModel)
         {
             var projectDto = _mapper.Map<ProjectModel>(projectModel);
             _context.Entry(new ProjectDto { Id = projectDto.Id, IsDeleted = true })
                 .Property(x => x.IsDeleted).IsModified = true;
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }

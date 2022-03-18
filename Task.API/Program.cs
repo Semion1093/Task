@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
-using Task.API.Configuration;
-using Task.API.Extensions;
-using Task.BusinessLayer.Configuration;
-using Task.DataLayer;
+using TestTask.API.Configuration;
+using TestTask.API.Extensions;
+using TestTask.BusinessLayer.Configuration;
+using TestTask.DataLayer;
 
 var builder = WebApplication.CreateBuilder(args);
 

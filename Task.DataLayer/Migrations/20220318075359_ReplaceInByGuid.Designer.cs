@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TestTask.DataLayer;
 
@@ -11,9 +12,10 @@ using TestTask.DataLayer;
 namespace TestTask.DataLayer.Migrations
 {
     [DbContext(typeof(TaskContext))]
-    partial class TaskContextModelSnapshot : ModelSnapshot
+    [Migration("20220318075359_ReplaceInByGuid")]
+    partial class ReplaceInByGuid
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -26,7 +28,7 @@ namespace TestTask.DataLayer.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("Uniqueidentifier");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("Completion")
                         .HasColumnType("datetime2");
@@ -58,7 +60,7 @@ namespace TestTask.DataLayer.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("Uniqueidentifier");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -77,7 +79,7 @@ namespace TestTask.DataLayer.Migrations
                         .HasColumnType("int");
 
                     b.Property<Guid>("ProjectId")
-                        .HasColumnType("Uniqueidentifier");
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");

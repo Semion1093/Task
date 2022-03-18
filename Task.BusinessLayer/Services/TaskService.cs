@@ -1,8 +1,8 @@
-﻿using Task.BusinessLayer.Exeptions;
-using Task.BusinessLayer.Interfaces;
-using Task.BusinessLayer.Models;
+﻿using TestTask.BusinessLayer.Exeptions;
+using TestTask.BusinessLayer.Interfaces;
+using TestTask.BusinessLayer.Models;
 
-namespace Task.BusinessLayer.Services
+namespace TestTask.BusinessLayer.Services
 {
     public class TaskService : ITaskService
     {
@@ -13,9 +13,9 @@ namespace Task.BusinessLayer.Services
             _taskRepository = taskRepository;
         }
 
-        public TaskModel GetTaskById(int id)
+        public async Task<TaskModel> GetTaskById(Guid id)
         {
-            var taskModel = _taskRepository.GetTaskById(id);
+            var taskModel = await _taskRepository.GetTaskById(id);
 
             if (taskModel is null)
                 throw new EntityNotFoundException($"Task wasn't found");
@@ -23,25 +23,25 @@ namespace Task.BusinessLayer.Services
             return taskModel;
         }
 
-        public List<TaskModel> GetTasksByProjectId(int id)
+        public async Task<List<TaskModel>> GetTasksByProjectId(Guid id)
         {
-            return _taskRepository.GetTasksByProjectId(id);
+            return await _taskRepository.GetTasksByProjectId(id);
         }
 
-        public List<TaskModel> GetAllTasks()
+        public async Task<List<TaskModel>> GetAllTasks()
         {
-            var taskModels = _taskRepository.GetAllTasks();
+            var taskModels = await _taskRepository.GetAllTasks();
             return taskModels;
         }
 
-        public void UpdateTask(TaskModel taskModel)
+        public async Task UpdateTask(TaskModel taskModel)
         {
-            _taskRepository.UpdateTask(taskModel);
+            await _taskRepository.UpdateTask(taskModel);
         }
 
-        public void DeleteTask(TaskModel taskModel)
+        public async Task DeleteTask(TaskModel taskModel)
         {
-            _taskRepository.DeleteTask(taskModel);
+            await _taskRepository.DeleteTask(taskModel);
         }
     }
 }

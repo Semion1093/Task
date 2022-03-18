@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Task.BusinessLayer", "Task.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Task.DataLayer", "Task.DataLayer\Task.DataLayer.csproj", "{AFAC37D1-9312-4E18-B043-A4D12C3A575A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Task.API", "Task.API\Task.API.csproj", "{0A44F396-47C8-4E70-9311-0867A5FDF863}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Task", "Task.API\Task.csproj", "{0A44F396-47C8-4E70-9311-0867A5FDF863}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Task.BusinessLayer.Tests", "Task.BusinessLayerTests\Task.BusinessLayer.Tests.csproj", "{0B0826F2-680E-40B6-AA3F-D7DB85CF96C0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Task.API.Layer", "Task.Api.Layer\Task.API.Layer.csproj", "{2E886AB4-78AB-41EB-8884-789EF0EF0739}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{0B0826F2-680E-40B6-AA3F-D7DB85CF96C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0B0826F2-680E-40B6-AA3F-D7DB85CF96C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0B0826F2-680E-40B6-AA3F-D7DB85CF96C0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E886AB4-78AB-41EB-8884-789EF0EF0739}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E886AB4-78AB-41EB-8884-789EF0EF0739}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E886AB4-78AB-41EB-8884-789EF0EF0739}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E886AB4-78AB-41EB-8884-789EF0EF0739}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
