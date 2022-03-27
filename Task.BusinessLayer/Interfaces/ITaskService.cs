@@ -4,6 +4,7 @@ namespace TestTask.BusinessLayer.Interfaces
 {
     public interface ITaskService
     {
+        Task<Guid> AddTask (TaskModel taskModel);
         Task DeleteTask(TaskModel taskModel);
         Task<List<TaskModel>> GetAllTasks();
         Task<List<TaskModel>> GetTasksByProjectId(Guid id);

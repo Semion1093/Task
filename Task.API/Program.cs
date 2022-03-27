@@ -1,15 +1,12 @@
-using Microsoft.EntityFrameworkCore;
 using TestTask.API.Configuration;
 using TestTask.API.Extensions;
 using TestTask.BusinessLayer.Configuration;
-using TestTask.DataLayer;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddDbContext<TaskContext>(op =>
-    op.UseSqlServer("Server=SIMO\\SQLEXPRESS;Database=Task.DB;Trusted_Connection=True"));
+builder.AddDbContext();
 
 builder.Services.AddAutoMapper(typeof(ApiMapper).Assembly, typeof(DataMapper).Assembly);
 

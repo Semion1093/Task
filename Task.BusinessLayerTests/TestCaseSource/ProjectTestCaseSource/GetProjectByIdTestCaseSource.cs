@@ -19,9 +19,7 @@ namespace TestTask.BusinessLayer.Tests.TestCaseSource
                 Completion = DateTime.Now
             };
 
-            Guid id = Guid.NewGuid();
-
-            yield return new object[] { id, expected };
+            yield return new object[] { expected };
         }
 
     }

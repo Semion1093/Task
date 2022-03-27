@@ -23,29 +23,44 @@ namespace TestTask.BusinessLayerTests
             _taskService = new TaskService(_taskRepositoryMock.Object);
         }
 
-        [TestCaseSource(typeof(GetTaskByIdTestCaseSource))]
-        public void GetTaskByIdTest(Guid id, Task<TaskModel> expected)
+        [Test]
+        public void AddTaskTest()
         {
-            //given 
-            _taskRepositoryMock.Setup(m => m.GetTaskById(id)).Returns(expected);
+            //given
+            var expected = Guid.NewGuid();
+            _taskRepositoryMock.Setup(m => m.AddTask(It.IsAny<TaskModel>())).ReturnsAsync(expected);
 
             //when 
-            var actual = _taskService.GetTaskById(id);
+            var actual = _taskService.AddTask(It.IsAny<TaskModel>()).Result;
+
+            //then
+            _taskRepositoryMock.Verify(m => m.AddTask(It.IsAny<TaskModel>()), Times.Once);
+            Assert.AreEqual(actual, expected);
+        }
+
+        [TestCaseSource(typeof(GetTaskByIdTestCaseSource))]
+        public void GetTaskByIdTest(TaskModel expected)
+        {
+            //given 
+            _taskRepositoryMock.Setup(m => m.GetTaskById(It.IsAny<Guid>())).ReturnsAsync(expected);
+
+            //when 
+            var actual = _taskService.GetTaskById(It.IsAny<Guid>()).Result;
 
             //then
             Assert.AreEqual(actual, expected);
-            _taskRepositoryMock.Verify(m => m.GetTaskById(id), Times.Once);
+            _taskRepositoryMock.Verify(m => m.GetTaskById(It.IsAny<Guid>()), Times.Once);
         }
 
         [Test]
         public void GetTaskByIdNegativeTest()
         {
             //given
-            _taskRepositoryMock.Setup(m => m.GetTaskById(It.IsAny<Guid>())).Returns((Task<TaskModel>)null);
+            _taskRepositoryMock.Setup(m => m.GetTaskById(It.IsAny<Guid>())).ReturnsAsync((TaskModel)null);
             var expectedMessage = "Task wasn't found";
 
             // when
-            EntityNotFoundException? exception = Assert.Throws<EntityNotFoundException>(() =>
+            EntityNotFoundException? exception = Assert.ThrowsAsync<EntityNotFoundException>(() =>
             _taskService.GetTaskById(It.IsAny<Guid>()));
 
             // then
@@ -53,13 +68,13 @@ namespace TestTask.BusinessLayerTests
         }
 
         [TestCaseSource(typeof(GetAllTasksTestCaseSource))]
-        public void GetAllTasksTest(Task<List<TaskModel>> expected)
+        public void GetAllTasksTest(List<TaskModel> expected)
         {
             //given
-            _taskRepositoryMock.Setup(m => m.GetAllTasks()).Returns(expected);
+            _taskRepositoryMock.Setup(m => m.GetAllTasks()).ReturnsAsync(expected);
 
             //when
-            var actual = _taskService.GetAllTasks();
+            var actual = _taskService.GetAllTasks().Result;
 
             //then
             Assert.IsNotNull(actual);
@@ -70,7 +85,7 @@ namespace TestTask.BusinessLayerTests
         public void UpdateTaskTest()
         {
             //given
-            _taskRepositoryMock.Setup(x => x.GetTaskById(It.IsAny<Guid>())).Returns(It.IsAny<Task<TaskModel>>());
+            _taskRepositoryMock.Setup(x => x.GetTaskById(It.IsAny<Guid>())).ReturnsAsync(It.IsAny<TaskModel>());
 
             //when
             _taskService.UpdateTask(It.IsAny<TaskModel>());

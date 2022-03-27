@@ -13,6 +13,13 @@ namespace TestTask.BusinessLayer.Services
             _taskRepository = taskRepository;
         }
 
+        public async Task<Guid> AddTask(TaskModel taskModel)
+        {
+            var taskId = await _taskRepository.AddTask(taskModel);
+
+            return taskId;
+        }
+
         public async Task<TaskModel> GetTaskById(Guid id)
         {
             var taskModel = await _taskRepository.GetTaskById(id);

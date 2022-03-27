@@ -20,6 +20,17 @@ namespace TestTask.API.Layer.Controllers
             _mapper = mapper;
         }
 
+        [HttpPost]
+        [SwaggerOperation(Summary = "Add new task")]
+        [SwaggerResponse(201, "Created")]
+        [SwaggerResponse(400, "Bad Request")]
+        public async Task<ActionResult> AddTask([FromBody] TaskInputModel task)
+        {
+            var taskId = await _taskService.AddTask(_mapper.Map<TaskModel>(task));
+
+            return StatusCode(201, taskId);
+        }
+
         [HttpGet("{id}")]
         [SwaggerOperation(Summary = "Get task by id")]
         [SwaggerResponse(200, "OK")]

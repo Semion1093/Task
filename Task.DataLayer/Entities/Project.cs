@@ -2,7 +2,7 @@
 
 namespace TestTask.DataLayer.Entities
 {
-    public class ProjectDto
+    public class Project
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
@@ -10,7 +10,7 @@ namespace TestTask.DataLayer.Entities
         public DateTime Completion { get; set; }
         public ProjectStatus Status { get; set; }
         public int Priority { get; set; }
-        public virtual ICollection<TaskDto> Tasks { get; set; }
+        public virtual ICollection<Task> Tasks { get; set; }
         public bool IsDeleted { get; set; }
     }
 }

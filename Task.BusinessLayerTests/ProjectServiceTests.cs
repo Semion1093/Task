@@ -27,39 +27,40 @@ namespace TestTask.BusinessLayerTests
         public void AddProjectTest()
         {
             //given
-            _projectRepositoryMock.Setup(m => m.AddProject(It.IsAny<ProjectModel>())).Returns(It.IsAny<Task<Guid>>());
+            var expected = Guid.NewGuid();
+            _projectRepositoryMock.Setup(m => m.AddProject(It.IsAny<ProjectModel>())).ReturnsAsync(expected);
 
             //when 
-            var actual = _projectService.AddProject(It.IsAny<ProjectModel>());
+            var actual = _projectService.AddProject(It.IsAny<ProjectModel>()).Result;
 
             //then
             _projectRepositoryMock.Verify(m => m.AddProject(It.IsAny<ProjectModel>()), Times.Once);
-            Assert.AreEqual(actual, It.IsAny<Guid>());
+            Assert.AreEqual(actual, expected);
         }
 
         [TestCaseSource(typeof(GetProjectByIdTestCaseSource))]
-        public void GetProjectByIdTest(Guid id, Task<ProjectModel> expected)
+        public void GetProjectByIdTest(ProjectModel expected)
         {
             //given 
-            _projectRepositoryMock.Setup(m => m.GetProjectById(id)).Returns(expected);
+            _projectRepositoryMock.Setup(m => m.GetProjectById(It.IsAny<Guid>())).ReturnsAsync(expected);
 
             //when 
-            var actual = _projectService.GetProjectById(id);
+            var actual = _projectService.GetProjectById(It.IsAny<Guid>()).Result;
 
             //then
             Assert.AreEqual(actual, expected);
-            _projectRepositoryMock.Verify(m => m.GetProjectById(id), Times.Once);
+            _projectRepositoryMock.Verify(m => m.GetProjectById(It.IsAny<Guid>()), Times.Once);
         }
 
         [Test]
         public void GetProjectByIdNegativeTest()
         {
             //given
-            _projectRepositoryMock.Setup(m => m.GetProjectById(It.IsAny<Guid>())).Returns((Task<ProjectModel>)null);
+            _projectRepositoryMock.Setup(m => m.GetProjectById(It.IsAny<Guid>())).ReturnsAsync((ProjectModel)null);
             var expectedMessage = "Project wasn't found";
 
             // when
-            EntityNotFoundException? exception = Assert.Throws<EntityNotFoundException>(() =>
+            EntityNotFoundException? exception = Assert.ThrowsAsync<EntityNotFoundException>(() =>
             _projectService.GetProjectById(Guid.NewGuid()));
 
             // then
@@ -67,13 +68,13 @@ namespace TestTask.BusinessLayerTests
         }
 
         [TestCaseSource(typeof(GetAllProjectsTestCaseSource))]
-        public void GetAllProjectsTest(Task<List<ProjectModel>> expected)
+        public void GetAllProjectsTest(List<ProjectModel> expected)
         {
             //given
-            _projectRepositoryMock.Setup(m => m.GetAllProjects()).Returns(expected);
+            _projectRepositoryMock.Setup(m => m.GetAllProjects()).ReturnsAsync(expected);
 
             //when
-            var actual = _projectService.GetAllProjects();
+            var actual = _projectService.GetAllProjects().Result;
 
             //then
             Assert.IsNotNull(actual);
@@ -84,7 +85,7 @@ namespace TestTask.BusinessLayerTests
         public void UpdateProjectTest()
         {
             //given
-            _projectRepositoryMock.Setup(x => x.GetProjectById(It.IsAny<Guid>())).Returns(It.IsAny<Task<ProjectModel>>());
+            _projectRepositoryMock.Setup(x => x.GetProjectById(It.IsAny<Guid>())).ReturnsAsync(It.IsAny<ProjectModel>());
 
             //when
             _projectService.UpdateProject(It.IsAny<ProjectModel>());

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TestTask.DataLayer.Entities;
+using Task = TestTask.DataLayer.Entities.Task;
 
 namespace TestTask.DataLayer
 {
@@ -7,16 +8,16 @@ namespace TestTask.DataLayer
     {
         public TaskContext(DbContextOptions<TaskContext> options) : base(options) { }
 
-        public DbSet<ProjectDto> Projects { get; set; }
-        public DbSet<TaskDto> Tasks { get; set; }
+        public DbSet<Project> Projects { get; set; }
+        public DbSet<Task> Tasks { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ProjectDto>()
+            modelBuilder.Entity<Project>()
                 .Property(a => a.IsDeleted)
                 .HasDefaultValue(0);
 
-            modelBuilder.Entity<TaskDto>()
+            modelBuilder.Entity<Task>()
                 .Property(a => a.IsDeleted)
                 .HasDefaultValue(0);
         }

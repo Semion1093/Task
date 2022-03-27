@@ -8,9 +8,11 @@ namespace TestTask.BusinessLayer.Configuration
     {
         public DataMapper()
         {
-            CreateMap<TaskDto, TaskModel>().ReverseMap();
+            CreateMap<DataLayer.Entities.Task, TaskModel>()
+                .ForPath(dest => dest.ProjectId, opt => opt.MapFrom(srs => srs.Project.Id))
+                .ReverseMap();
 
-            CreateMap<ProjectDto, ProjectModel>().ReverseMap();
+            CreateMap<Project, ProjectModel>().ReverseMap();
         }
     }
 }
