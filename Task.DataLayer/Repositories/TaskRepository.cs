@@ -57,7 +57,6 @@ namespace TestTask.DataLayer.Repositories
             
             var task = _mapper.Map<Entities.Task>(taskModel);
             _context.Entry(task).State = EntityState.Modified;
-            //_context.Update(task);
 
             await _context.SaveChangesAsync();
         }
