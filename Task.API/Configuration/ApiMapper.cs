@@ -9,6 +9,8 @@ namespace TestTask.API.Configuration
         public ApiMapper()
         {
             CreateMap<TaskInputModel, TaskModel>();
+            CreateMap<TaskUpdateModel, TaskModel>();
+            CreateMap<TaskInsertModel, TaskModel>();
             CreateMap<TaskModel, TaskOutputModel>();
 
             CreateMap<ProjectInputModel, ProjectModel>();

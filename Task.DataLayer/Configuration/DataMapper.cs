@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using TestTask.BusinessLayer.Models;
 using TestTask.DataLayer.Entities;
+using Task = TestTask.DataLayer.Entities.Task;
 
 namespace TestTask.BusinessLayer.Configuration
 {
@@ -8,10 +9,7 @@ namespace TestTask.BusinessLayer.Configuration
     {
         public DataMapper()
         {
-            CreateMap<DataLayer.Entities.Task, TaskModel>()
-                .ForPath(dest => dest.ProjectId, opt => opt.MapFrom(srs => srs.Project.Id))
-                .ReverseMap();
-
+            CreateMap<Task, TaskModel>().ReverseMap();
             CreateMap<Project, ProjectModel>().ReverseMap();
         }
     }

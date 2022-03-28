@@ -20,7 +20,7 @@ namespace TestTask.DataLayer.Repositories
         public async Task<Guid> AddTask(TaskModel taskModel)
         {
             var task = _mapper.Map<Entities.Task>(taskModel);
-            var addedTask = _context.Tasks.Add(task);
+            var addedTask = _context.Tasks.Attach(task);
             await _context.SaveChangesAsync();
 
             return addedTask.Entity.Id;
@@ -54,17 +54,19 @@ namespace TestTask.DataLayer.Repositories
 
         public async Task UpdateTask(TaskModel taskModel)
         {
+            
             var task = _mapper.Map<Entities.Task>(taskModel);
-            _context.Update(task);
+            _context.Entry(task).State = EntityState.Modified;
+            //_context.Update(task);
 
             await _context.SaveChangesAsync();
         }
 
         public async Task DeleteTask(TaskModel taskModel)
         {
-            var taskt = _mapper.Map<Entities.Task>(taskModel);
+            var task = _mapper.Map<Entities.Task>(taskModel);
 
-            _context.Entry(new Entities.Task { Id = taskt.Id, IsDeleted = true })
+            _context.Entry(new Entities.Task { Id = task.Id, IsDeleted = true })
                 .Property(x => x.IsDeleted).IsModified = true;
 
             await _context.SaveChangesAsync();

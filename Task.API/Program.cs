@@ -1,12 +1,17 @@
+using Microsoft.EntityFrameworkCore;
 using TestTask.API.Configuration;
 using TestTask.API.Extensions;
 using TestTask.BusinessLayer.Configuration;
+using TestTask.DataLayer;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.AddDbContext();
+const string connectionEnvironmentVariableName = "CONNECTIONS_STRING";
+
+var connectionString = builder.Configuration.GetValue<string>(connectionEnvironmentVariableName);
+builder.Services.AddDbContext<TaskContext>(op => op.UseSqlServer(connectionString));
 
 builder.Services.AddAutoMapper(typeof(ApiMapper).Assembly, typeof(DataMapper).Assembly);
 

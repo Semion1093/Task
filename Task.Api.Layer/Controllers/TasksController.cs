@@ -24,7 +24,7 @@ namespace TestTask.API.Layer.Controllers
         [SwaggerOperation(Summary = "Add new task")]
         [SwaggerResponse(201, "Created")]
         [SwaggerResponse(400, "Bad Request")]
-        public async Task<ActionResult> AddTask([FromBody] TaskInputModel task)
+        public async Task<ActionResult> AddTask([FromBody] TaskInsertModel task)
         {
             var taskId = await _taskService.AddTask(_mapper.Map<TaskModel>(task));
 
@@ -73,7 +73,7 @@ namespace TestTask.API.Layer.Controllers
         [SwaggerResponse(204, "NoContent")]
         [SwaggerResponse(400, "Bad Request")]
         [SwaggerResponse(404, "NotFound")]
-        public async Task<ActionResult> UpdateTask([FromBody] TaskInputModel task)
+        public async Task<ActionResult> UpdateTask([FromBody] TaskUpdateModel task)
         {
             var taskModel = _mapper.Map<TaskModel>(task);
             await _taskService.UpdateTask(taskModel);
@@ -86,7 +86,7 @@ namespace TestTask.API.Layer.Controllers
         [SwaggerResponse(204, "NoContent")]
         [SwaggerResponse(400, "Bad Request")]
         [SwaggerResponse(404, "NotFound")]
-        public async Task<ActionResult> DeleteTask([FromBody] TaskInputModel task)
+        public async Task<ActionResult> DeleteTask([FromBody] TaskUpdateModel task)
         {
             var taskModel = _mapper.Map<TaskModel>(task);
             await _taskService.DeleteTask(taskModel);
