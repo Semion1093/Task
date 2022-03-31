@@ -2,7 +2,6 @@ using Moq;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using TestTask.BusinessLayer.Exeptions;
 using TestTask.BusinessLayer.Interfaces;
 using TestTask.BusinessLayer.Models;
@@ -10,7 +9,7 @@ using TestTask.BusinessLayer.Services;
 using TestTask.BusinessLayer.Tests.TestCaseSource;
 
 namespace TestTask.BusinessLayerTests
-{ 
+{
     public class Tests
     {
         private Mock<ITaskRepository> _taskRepositoryMock;

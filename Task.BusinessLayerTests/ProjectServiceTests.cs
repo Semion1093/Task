@@ -2,7 +2,6 @@
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using TestTask.BusinessLayer.Exeptions;
 using TestTask.BusinessLayer.Interfaces;
 using TestTask.BusinessLayer.Models;
