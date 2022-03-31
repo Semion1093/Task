@@ -10,7 +10,7 @@ using TestTask.BusinessLayer.Tests.TestCaseSource;
 
 namespace TestTask.BusinessLayerTests
 {
-    public class Tests
+    public class TaskServiceTests
     {
         private Mock<ITaskRepository> _taskRepositoryMock;
         private TaskService _taskService;
