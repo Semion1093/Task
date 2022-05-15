@@ -1,18 +1,20 @@
-# Task Tracker
+## Описание проекта
 
-Creating Web Api application as part of the test task
+Тестовое задание для прохождения стажировки в компанию Akvelon.
 
-## Getting Started:
+## Технологии: 
+.Net 6
 
-To start the application:
-```
-dotnet run
-```
-## Technologies used:
-- AutoMapper
-- Entity Framework Core
-- Moq
-- NUnit
+EntityFramework Core
 
-## Проект
-[Task Tracker](https://github.com/Semion1093/Task)
+AspNetCore
+
+
+NUnit
+
+Moq
+
+Automapper
+
+БД - MS SQL Server
+
